@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen p-6">
+
+<div class="max-w-3xl mx-auto bg-white shadow-2xl rounded-3xl p-10 space-y-6">
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">📝 Tasks Todo </h1>
+
+    <!-- Add Task Form -->
+    <form action="/add" method="post" class="flex items-center gap-4">
+        <input type="text" name="task" placeholder="What needs to be done?" required
+               class="flex-1 px-4 py-2 border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400" />
+        <button type="submit"
+                class="px-6 py-2 bg-indigo-500 text-white rounded-full font-semibold hover:bg-indigo-600 transition-all shadow-md">
+            Add
+        </button>
+    </form>
+
+    <div class="space-y-4 divide-y divide-gray-200">
+        <!-- Task List -->
+        <div th:each="task : ${taskList}" class="pt-4 flex items-center justify-between">
+            <form action="/update" method="post" class="flex items-center gap-3 w-full">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <input type="checkbox" name="completed"
+                       th:checked="${task.completed}" onchange="this.form.submit()"
+                       class="h-5 w-5 text-indigo-600 bg-gray-100 border-gray-300 rounded focus:ring-indigo-500" />
+                <span th:text="${task.task}"
+                      th:classappend="${task.completed} ? 'line-through text-gray-400' : 'text-gray-800'"
+                      class="text-lg font-medium w-full break-words"></span>
+            </form>
+
+            <form action="/delete" method="post">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <button type="submit"
+                        class="ml-4 px-4 py-1 bg-red-100 text-red-600 font-semibold rounded-full hover:bg-red-200 transition">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

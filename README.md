@@ -1,8 +1,8 @@
-#TODO APP
+# TODO APP
 
 ---
 
-## 🏗 Tech Stack
+##  Tech Stack
 
 - *Backend*: Springbooot
 - *Frontend*: Thymeleaf + Tailwind CSS
